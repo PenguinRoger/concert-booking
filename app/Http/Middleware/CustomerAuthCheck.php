@@ -16,11 +16,9 @@ class CustomerAuthCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if(!Session::has('customerLoginId')){
-            return redirect('Loginuser')->with('fail','You have to login first');   
+        if (!Session::has('customerLoginId')) {
+            return redirect('Loginuser')->with('fail', 'You have to login first');
         }
         return $next($request);
-
     }
 }

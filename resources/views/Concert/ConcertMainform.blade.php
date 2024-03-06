@@ -28,7 +28,7 @@ use App\Models\CusUser;
             <ul class="navbar-menu">
                 <li><a href="/ConcertBruTicket"><i class='bx bx-home-alt-2' >Home</i></a></li>
                 <li><a href="/ConcertBruTicket/allconcert"><i class='bx bx-music' >Concert</i></a></li>
-                <li><a href="#"><i class='bx bx-message-square-dots'>Tickets</i></a></li>
+                <li><a href="/ConcertBruTicket/tricket"><i class='bx bx-message-square-dots'>Tickets</i></a></li>
 
                 @if(Session::has('customerLoginId'))
                 <?php

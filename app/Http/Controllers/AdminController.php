@@ -57,9 +57,10 @@ class AdminController extends Controller
             $user->phonnumber = $request->phonnumber;
             $res = $user->save();
             if($res){
-                return redirect('/AdminDashbord/customer')->back()->with('success', 'Successfully added customer!');
+                return redirect('/AdminDashbord/customer')->with('success', 'Successfully added customer!');
                 }else{
-                return back()->with('fail','Something wrong'); }
+                    return redirect()->back()->with('error', 'Something wrong');
+                }
         }
     // การแก้ไขข้อมูลลูกค้า
     public function updateCustomer(Request $request) {
@@ -83,7 +84,7 @@ class AdminController extends Controller
     public function DashTicket(){
         $concerts = Concert::with('tickets')->get();
         foreach ($concerts as $concert) {
-            $totalTicketsAvailable = $concert->tickets->sum('quantity_available');
+            $totalTicketsAvailable = $concert->tickets->sum('quantity_avaliable');
 
             $concert->total_tickets_available = $totalTicketsAvailable;
         }
@@ -99,7 +100,7 @@ public function addTicket(Request $request) {
     $ticket->concert_id = $request->input('concert_id');
     $ticket->type = $request->input('type');
     $ticket->price = $request->input('price');
-    $ticket->quantity_available = $request->input('quantity_available');
+    $ticket->quantity_avaliable = $request->input('quantity_avaliable');
     $ticket->save();
 
     return redirect()->back()->with('success', 'Ticket added successfully');
@@ -110,7 +111,7 @@ public function updateTicket(Request $request, $id) {
     $ticket = Ticket::find($id);
     $ticket->type = $request->input('type');
     $ticket->price = $request->input('price');
-    $ticket->quantity_available = $request->input('quantity_available');
+    $ticket->quantity_avaliable = $request->input('quantity_avaliable');
     $ticket->save();
 
     return redirect()->back()->with('success', 'Ticket updated successfully.');
@@ -128,6 +129,24 @@ public function deleteTicket($id) {
 
     return redirect()->back()->with('success', 'Ticket deleted successfully');
 }
+public function editadd($id, Request $request) {
+
+    $ticket = Ticket::find($id);
+
+    if (!$ticket) {
+
+        return redirect()->back()->with('error', 'Ticket not found.');
+
+    }
+
+    $ticket->quantity_avaliable = $request->input('quantity_avaliable');
+
+    $ticket->save();
+
+    return redirect()->back()->with('success', 'Ticket updated successfully');
+
+}
+
 
 
 

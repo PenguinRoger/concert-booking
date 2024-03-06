@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('concert_id');
             $table->string('type');
             $table->decimal('price', 8, 2);
-            $table->integer('quantity_available');
+            $table->integer('quantity_avaliable');
             $table->timestamps();
 
         });

@@ -9,7 +9,7 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['concert_id', 'type', 'price', 'quantity_available'];
+    protected $fillable = ['concert_id', 'type', 'price', 'quantity_avaliable'];
 
     public function concert() {
         return $this->belongsTo(Concert::class);

@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\TicketController;
+/*
 
 
 /*
@@ -45,8 +47,12 @@ Route::get('/reguser',[AuthController::class,'registration'])->middleware('alrea
 Route::post('/register-user',[AuthController::class,'registerUser'])->name('register-user');
 
 
+Route::get('/ConcertBruTicket/print-tickets/{bookingId}', [BookingController::class, 'printTickets'])->name('printTickets');
+
+Route::get('/ConcertBruTicket/tricket', [BookingController::class, 'viewBookings'])->name('viewBookings');
 Route::get('/ConcertBruTicket',[ConcertController::class,'index']);
 Route::get('/ConcertBruTicket/allconcert', [ConcertController::class, 'allConcerts']);
+Route::post('/delete-concert', [ConcertController::class, 'deleteConcert'])->name('deleteConcert');
 
 
 
@@ -59,12 +65,14 @@ Route::get('/AdminDashbord/ticket', [AdminController::class, 'DashTicket']);
 Route::post('/add-ticket', [AdminController::class, 'addTicket']);
 Route::POST('/update-ticket/{id}', [AdminController::class, 'updateTicket']);
 Route::delete('/delete-ticket/{id}', [AdminController::class, 'deleteTicket']);
+Route::POST('/editadd-ticket/{id}', [AdminController::class, 'editadd']);
 
 
 Route::post('/add-concert', [AdminController::class, 'storeConcert']);
 Route::post('/add-customer',[AdminController::class,'addCustomer']);
 Route::post('/edit-customer', [AdminController::class, 'updateCustomer']);
 Route::post('/delete-customer', [AdminController::class, 'deleteCustomer']);
+
 
 
 Route::get('/booking', [BookingController::class, 'showBookingForm']);
@@ -74,11 +82,12 @@ Route::post('/booking/{concert_id}', [BookingController::class, 'processBooking'
 
 
 
+
 Route::get('/generate-pdf', [CustomerController::class, 'generatePDF']);
 Route::get('/get-tickets-for-concert/{concert_id}', 'TicketController@getTicketsForConcert');
 
 Route::get('/generate-pdf-hhh', [CustomerController::class, 'cusgeneratePDF']);
-Route::get('/print-tickets/{customerId}', [BookingController::class,'printTickets']);
+Route::get('/print-tickets/{bookingId}', [BookingController::class,'printTickets']);
 
 Route::get('/test-hash', function () {
     return bcrypt('adminRoger');

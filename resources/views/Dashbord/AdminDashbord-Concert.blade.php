@@ -138,11 +138,16 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- ใช้รูปแบบ CSS ใหม่ -->
                                     <img class="concert-image" src="{{ asset('images/' . $concert->image) }}" alt="{{ $concert->name }}">
                                     <p>{{ $concert->description }}</p>
                                     <p>Date & Time: {{ $concert->date_time }}</p>
                                     <p>Location: {{ $concert->location }}</p>
+                                    <form action="{{ route('deleteConcert') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="concert_id" value="{{ $concert->id }}">
+                                        <button type="submit" class="btn btn-danger">ลบ</button>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>

@@ -8,7 +8,8 @@ use App\Models\CusUser;
 use App\Models\Ticket;
 use App\Models\Booking;
 use App\Models\Concert;
-use PDF;
+use Illuminate\Support\Facades\PDF;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -46,7 +47,7 @@ class BookingController extends Controller
             return back()->with('error', 'Ticket not found.');
         }
 
-        if ($ticket->quantity_available < $ticket_quantity) {
+        if ($ticket->quantity_avaliable < $ticket_quantity) {
             return back()->with('error', 'Not enough tickets available.');
         }
 
@@ -76,25 +77,34 @@ class BookingController extends Controller
             Session::put('bookingDetails', $bookingDetails);
 
             // ลดจำนวนตั๋วในคลัง
-            $ticket->quantity_available -= $ticket_quantity;
+            $ticket->quantity_avaliable -= $ticket_quantity;
             $ticket->save();
             $request->session()->flash('success', 'จองสำเร็จ');
             return redirect('/ConcertBruTicket/allconcert')->with('success', 'Booking successful!');
     }
 
-    public function showBookingDetails()
-{
-    // เรียกข้อมูลการจองจาก Session
-    $booking = Session::get('bookingDetails');
+    public function showBookingDetails(){
+        // เรียกข้อมูลการจองจาก Session
+        $booking = Session::get('bookingDetails');
 
-    // ส่งข้อมูลไปยัง view
-    return view('showBookingDetails', compact('booking'));
-}
+        // ส่งข้อมูลไปยัง view
+        return view('showBookingDetails', compact('booking'));
+    }
 
-public function printTickets($customerId) {
-    $bookings = Booking::where('cus_user_id', $customerId)->get();
-    return view('pdf.booking', compact('bookings'));
-}
+    public function printTickets($bookingId) {
+        $booking = Booking::find($bookingId);
+        if (!$booking) {
+            return back()->with('error', 'Booking not found.');
+        }
+        return view('pdf.booking', compact('booking'));
+    }
+
+
+    public function viewBookings() {
+        $customerId = Session::get('customerLoginId');
+        $bookings = Booking::where('cus_user_id', $customerId)->simplePaginate(5); // 10 คือจำนวนรายการต่อหน้า
+        return view('Concert.ConcertTricket', compact('bookings'));
+    }
 
 
 

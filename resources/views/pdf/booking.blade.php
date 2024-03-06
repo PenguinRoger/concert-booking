@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Booking Details</title>
+    <link rel="stylesheet" href="{{ asset('css/BookingDetail.css') }}">
 </head>
 <body>
-    @if($bookings->count() > 0)
-        @foreach($bookings as $booking)
+    <div class="container">
         <h1>ข้อมูลการจอง</h1>
-        <p>ชื่อ: {{ $booking->name }}</p>
-        <p>คอนเสิร์ต: {{ $booking->concert_name }}</p>
-        <p>ประเภทตั๋ว: {{ $booking->ticket_type }}</p>
-        <p>ราคาตั๋ว: {{ $booking->ticket_price }}</p>
-        <p>จำนวนตั๋ว: {{ $booking->ticket_quantity }}</p>
+        <p>ชื่อ: {{ $booking->cus_user->name }}</p>
+        <p>คอนเสิร์ต: {{ $booking->concert->name }}</p>
+        <p>วันที่จอง: {{ $booking->concert->date_time }}</p>
+        <p>สถานที่: {{ $booking->concert->location }}</p>
+        <p>ประเภทตั๋ว: {{ $booking->ticket->type }}</p>
+        <p>ราคาตั๋ว: {{ $booking->ticket->price }}</p>
+        <p>จำนวนตั๋ว: {{ $booking->quantity }}</p>
         <p>ราคาสุทธิ: {{ $booking->total_price }}</p>
-        @endforeach
-    @else
-        <p>ไม่พบข้อมูลการจอง</p>
-    @endif
+    </div>
 
     <script>
         window.print(); // Auto-trigger print dialog

@@ -16,10 +16,9 @@ class CustomerAlreadyLoggedIn
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Session::has('customerLoginId') && (url('Loginuser') == $request->url() || url('reguser') == $request->url())) {
+        if (Session::has('customerLoginId') && (url('Loginuser') == url()->current() || url('reguser') == url()->current())) {
             return back();
         }
         return $next($request);
-
     }
 }
