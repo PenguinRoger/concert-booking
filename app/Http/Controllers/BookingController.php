@@ -14,17 +14,20 @@ use Illuminate\Support\Facades\Auth;
 class BookingController extends Controller
 {
     // แสดงหน้าจองตั๋ว
-    public function showBookingForm($concert_id) {
+    public function showBookingForm($concert_id)
+    {
         $concert = Concert::with('tickets')->where('id', $concert_id)->first();
         return view('Concert.ConcertAll', ['concert' => $concert]);
     }
-    public function getTicketsForConcert($concert_id) {
+    public function getTicketsForConcert($concert_id)
+    {
         $tickets = Ticket::where('concert_id', $concert_id)->get();
         return response()->json($tickets);
     }
 
     // ประมวลผลการจอง
-    public function processBooking(Request $request) {
+    public function processBooking(Request $request)
+    {
         $user_id = $request->input('user_id');
         $concert_id = $request->input('concert_id');
         $ticket_type = $request->input('ticket_type');
@@ -51,39 +54,40 @@ class BookingController extends Controller
             return back()->with('error', 'Not enough tickets available.');
         }
 
-            // สร้างการจอง
-            $booking = new Booking();
-            $booking->cus_user_id = $user_id;
-            $booking->concert_id = $concert_id;
-            $booking->ticket_id = $ticket->id;
-            $booking->quantity = $ticket_quantity;
-            $booking->total_price = $ticket->price * $ticket_quantity;
-            $booking->save();
+        // สร้างการจอง
+        $booking = new Booking();
+        $booking->cus_user_id = $user_id;
+        $booking->concert_id = $concert_id;
+        $booking->ticket_id = $ticket->id;
+        $booking->quantity = $ticket_quantity;
+        $booking->total_price = $ticket->price * $ticket_quantity;
+        $booking->save();
 
-            if (Session::has('bookingDetails')) {
-                Session::forget('bookingDetails');
-            }
-            // หลังจากการจองสำเร็จ
-            $bookingDetails = [
-                'name' => $request->name,
-                'concert_name' => $concert->name,
-                'ticket_type' => $request->ticket_type,
-                'ticket_price' => $ticket->price,
-                'ticket_quantity' => $ticket_quantity,
-                'total_price' => $ticket->price * $ticket_quantity,
-            ];
+        if (Session::has('bookingDetails')) {
+            Session::forget('bookingDetails');
+        }
+        // หลังจากการจองสำเร็จ
+        $bookingDetails = [
+            'name' => $request->name,
+            'concert_name' => $concert->name,
+            'ticket_type' => $request->ticket_type,
+            'ticket_price' => $ticket->price,
+            'ticket_quantity' => $ticket_quantity,
+            'total_price' => $ticket->price * $ticket_quantity,
+        ];
 
-            // เก็บข้อมูลการจองใน Session
-            Session::put('bookingDetails', $bookingDetails);
+        // เก็บข้อมูลการจองใน Session
+        Session::put('bookingDetails', $bookingDetails);
 
-            // ลดจำนวนตั๋วในคลัง
-            $ticket->quantity_avaliable -= $ticket_quantity;
-            $ticket->save();
-            $request->session()->flash('success', 'จองสำเร็จ');
-            return redirect('/ConcertBruTicket/allconcert')->with('success', 'Booking successful!');
+        // ลดจำนวนตั๋วในคลัง
+        $ticket->quantity_avaliable -= $ticket_quantity;
+        $ticket->save();
+        $request->session()->flash('success', 'จองสำเร็จ');
+        return redirect('/ConcertBruTicket/allconcert')->with('success', 'Booking successful!');
     }
 
-    public function showBookingDetails(){
+    public function showBookingDetails()
+    {
         // เรียกข้อมูลการจองจาก Session
         $booking = Session::get('bookingDetails');
 
@@ -91,7 +95,8 @@ class BookingController extends Controller
         return view('showBookingDetails', compact('booking'));
     }
 
-    public function printTickets($bookingId) {
+    public function printTickets($bookingId)
+    {
         $booking = Booking::find($bookingId);
         if (!$booking) {
             return back()->with('error', 'Booking not found.');
@@ -100,13 +105,10 @@ class BookingController extends Controller
     }
 
 
-    public function viewBookings() {
+    public function viewBookings()
+    {
         $customerId = Session::get('customerLoginId');
         $bookings = Booking::where('cus_user_id', $customerId)->simplePaginate(5); // 10 คือจำนวนรายการต่อหน้า
         return view('Concert.ConcertTricket', compact('bookings'));
     }
-
-
-
 }
-

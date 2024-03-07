@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Booking Details</title>
     <link rel="stylesheet" href="{{ asset('css/BookingDetail.css') }}">
 </head>
+
 <body>
     <div class="container">
         <h1>ข้อมูลการจอง</h1>
@@ -22,4 +24,5 @@
         window.print(); // Auto-trigger print dialog
     </script>
 </body>
+
 </html>

@@ -21,7 +21,7 @@
 
         <ul class="side-menu">
             <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-            <li><a href="#"><i class='bx bx-music' ></i>Concert</a></li>
+            <li><a href="#"><i class='bx bx-music'></i>Concert</a></li>
             <li class="active"><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
             <li><a href="#"><i class='bx bx-book-open'></i>Tickets</a></li>
             <li><a href="#"><i class='bx bx-user'></i>Customer</a></li>
@@ -86,14 +86,14 @@
 
 
 
-                <!-- Reminders -->
+            <!-- Reminders -->
 
 
-                <!-- End of Reminders-->
+            <!-- End of Reminders-->
 
-            </div>
+    </div>
 
-        </main>
+    </main>
 
     </div>
 

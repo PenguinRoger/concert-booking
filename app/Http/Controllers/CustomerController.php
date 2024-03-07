@@ -10,13 +10,13 @@ use App\Models\Booking;
 class CustomerController extends Controller
 {
     public function generatePDF()
-{
-    $customers = CusUser::all();
-    $pdf = PDF::loadView('pdf.customerinfo', compact('customers'));
-    return $pdf->download('customers.pdf');
-}
+    {
+        $customers = CusUser::all();
+        $pdf = PDF::loadView('pdf.customerinfo', compact('customers'));
+        return $pdf->download('customers.pdf');
+    }
 
-public function cusgeneratePDF($bookingId)
+    public function cusgeneratePDF($bookingId)
     {
         $booking = Booking::with(['user', 'concert', 'ticket'])->find($bookingId);
 

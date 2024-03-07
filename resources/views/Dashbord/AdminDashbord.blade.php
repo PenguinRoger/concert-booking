@@ -22,7 +22,7 @@
         </a>
 
         <ul class="side-menu">
-            <li><a href="/AdminDashbord/concert"><i class='bx bx-music' ></i>Concert</a></li>
+            <li><a href="/AdminDashbord/concert"><i class='bx bx-music'></i>Concert</a></li>
             <li><a href="#"><i class='bx bx-book-open'></i>Tickets</a></li>
             <li><a href="/AdminDashbord/customer"><i class='bx bx-user'></i>Customer</a></li>
         </ul>
@@ -53,16 +53,16 @@
         <!-- End of Navbar -->
 
 
-            <!-- End of Insights -->
+        <!-- End of Insights -->
 
 
 
 
-                <!-- End of Reminders-->
+        <!-- End of Reminders-->
 
-            </div>
+    </div>
 
-        </main>
+    </main>
 
     </div>
 

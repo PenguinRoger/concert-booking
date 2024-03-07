@@ -10,14 +10,17 @@ use App\Models\Ticket;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Crypt;
+
 class ConcertController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         // return view('ConcertBruTicket', compact('concerts'));
         return view('Concert.ConcertMainform');
     }
 
-    public function allConcerts() {
+    public function allConcerts()
+    {
         $concerts = Concert::all();
         $concerts = Concert::with('tickets')->get();
         foreach ($concerts as $concert) {
@@ -28,7 +31,8 @@ class ConcertController extends Controller
         return view('Concert.ConcertAll', ['concerts' => $concerts]);
     }
 
-    public function deleteConcert(Request $request){
+    public function deleteConcert(Request $request)
+    {
         $concert = Concert::find($request->concert_id);
         if ($concert) {
             $concert->delete();
@@ -38,10 +42,8 @@ class ConcertController extends Controller
         }
     }
 
-    public function concertall(){
+    public function concertall()
+    {
         return view('Concert.ConcertAll');
     }
-
-
-
 }
