@@ -6,21 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css\AdminDashbordStyle-concert.css') }}">
-
-
+    <link rel="stylesheet" href="{{ asset('css/AdminDashbordStyle-concert.css') }}">
     <title>Admin Dashboard</title>
 </head>
 
 <body>
-
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-deezer'></i>
             <div class="logo-name"><span>Admin</span>Music</div>
         </a>
-
         <ul class="side-menu">
             <li><a href="/AdminDashbord/concert"><i class='bx bx-music'></i>Concert</a></li>
             <li><a href="/AdminDashbord/ticket"><i class='bx bx-book-open'></i>Tickets</a></li>
@@ -49,7 +45,6 @@
                 </div>
             </form>
         </nav>
-
         <!-- End of Navbar -->
 
         <main>
@@ -57,22 +52,17 @@
                 <div class="left">
                     <h1>Dashboard</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">
-                                Concert
-                            </a></li>
-                        /
+                        <li><a href="#">Concert</a></li> /
                         <li><a href="#" class="active">Manage Concert</a></li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Insights -->
-            <!-- Scrollable modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal"
-                data-target="#addConcertModal">เพิ่มคอนเสิร์ต</button>
+            <!-- Button to Open the Modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addConcertModal">เพิ่มคอนเสิร์ต</button>
 
-            <div class="modal fade" id="addConcertModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <!-- The Modal -->
+            <div class="modal fade" id="addConcertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -86,8 +76,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">ชื่อคอนเสิร์ต</label>
-                                    <input type="text" name="name" class="form-control"
-                                        placeholder="ชื่อคอนเสิร์ต" required>
+                                    <input type="text" name="name" class="form-control" placeholder="ชื่อคอนเสิร์ต" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">รายละเอียดคอนเสิร์ต</label>
@@ -103,8 +92,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="location">สถานที่</label>
-                                    <input type="text" name="location" class="form-control" placeholder="สถานที่"
-                                        required>
+                                    <input type="text" name="location" class="form-control" placeholder="สถานที่" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
@@ -117,37 +105,30 @@
             </div>
 
             <div class="row">
-                @foreach ($concerts as $concert)
-                    <!-- ในแบบฟอร์มของแต่ละการ์ด -->
+                @foreach($concerts as $concert)
                     <div class="col-md-3">
-                        <div class="card mb-4 ">
-                            <!-- เพิ่ม data-toggle และ data-target เพื่อเรียกใช้โมดอล -->
-                            <a href="#concertModal{{ $concert->id }}" data-toggle="modal"
-                                data-target="#concertModal{{ $concert->id }}">
-                                <img class="concert-image" src="{{ asset('images/' . $concert->image) }}"
-                                    alt="{{ $concert->name }}">
+                        <div class="card mb-4">
+                            <a href="#concertModal{{ $concert->id }}" data-toggle="modal" data-target="#concertModal{{ $concert->id }}">
+                                <img class="concert-image" src="{{ asset('images/' . $concert->image) }}" alt="{{ $concert->name }}" style="width: 100%; height: auto;">
                                 <div class="card-body">
-                                    <h5 class="card-title ">{{ $concert->name }}</h5>
+                                    <h5 class="card-title">{{ $concert->name }}</h5>
                                 </div>
                             </a>
                         </div>
                     </div>
 
-                    <!-- โมดอลของแต่ละการ์ด -->
-                    <div class="modal fade" id="concertModal{{ $concert->id }}" tabindex="-1"
-                        aria-labelledby="concertModal{{ $concert->id }}Label" aria-hidden="true">
+                    <!-- Modal for each concert -->
+                    <div class="modal fade" id="concertModal{{ $concert->id }}" tabindex="-1" aria-labelledby="concertModal{{ $concert->id }}Label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content ">
+                            <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="concertModal{{ $concert->id }}Label">
-                                        {{ $concert->name }}</h5>
+                                    <h5 class="modal-title" id="concertModal{{ $concert->id }}Label">{{ $concert->name }}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <img class="concert-image" src="{{ asset('images/' . $concert->image) }}"
-                                        alt="{{ $concert->name }}">
+                                    <img class="concert-image" src="{{ asset('images/' . $concert->image) }}" alt="{{ $concert->name }}" style="width: 100%; height: auto;">
                                     <p>{{ $concert->description }}</p>
                                     <p>Date & Time: {{ $concert->date_time }}</p>
                                     <p>Location: {{ $concert->location }}</p>
@@ -156,39 +137,20 @@
                                         <input type="hidden" name="concert_id" value="{{ $concert->id }}">
                                         <button type="submit" class="btn btn-danger">ลบ</button>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
-
-
-
-
-            <!-- End of Insights -->
-
-
-
-            <!-- Reminders -->
-
-
-            <!-- End of Reminders-->
-
+        </main>
     </div>
 
-    </main>
-
-    </div>
-
-
-    <!--ส่วนของสคริป--->
-    <script src="{{ asset('js\AdminDashbord.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/AdminDashbord.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 
 </html>
